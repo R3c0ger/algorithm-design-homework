@@ -2132,7 +2132,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_import_from">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>从...导入</string>
@@ -2486,6 +2486,38 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_import_from</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>trigger_pushButton_importedges_file()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>15</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1004</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_export_to</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>trigger_pushButton_exportedges_to()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>12</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1003</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>trigger_actHelp()</slot>
@@ -2507,5 +2539,7 @@ p, li { white-space: pre-wrap; }
   <slot>save_allinput()</slot>
   <slot>aes_encrypt()</slot>
   <slot>base64()</slot>
+  <slot>trigger_pushButton_importedges_file()</slot>
+  <slot>trigger_pushButton_exportedges_to()</slot>
  </slots>
 </ui>

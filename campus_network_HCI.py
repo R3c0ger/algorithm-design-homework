@@ -723,7 +723,7 @@ class Ui_MainWindow(object):
         self.action_import = QtWidgets.QAction(MainWindow)
         self.action_import.setObjectName("action_import")
         self.action_import_from = QtWidgets.QAction(MainWindow)
-        self.action_import_from.setEnabled(False)
+        self.action_import_from.setEnabled(True)
         self.action_import_from.setObjectName("action_import_from")
         self.action_export = QtWidgets.QAction(MainWindow)
         self.action_export.setEnabled(False)
@@ -764,6 +764,8 @@ class Ui_MainWindow(object):
         self.pushButton_saveall.clicked.connect(MainWindow.save_allinput) # type: ignore
         self.pushButton_send.clicked.connect(MainWindow.aes_encrypt) # type: ignore
         self.pushButton_en.clicked.connect(MainWindow.base64) # type: ignore
+        self.action_import_from.triggered.connect(MainWindow.trigger_pushButton_importedges_file) # type: ignore
+        self.action_export_to.triggered.connect(MainWindow.trigger_pushButton_exportedges_to) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

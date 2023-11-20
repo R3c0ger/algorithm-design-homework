@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QStyleFactory
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QStyleFactory, QFileDialog
 # from PyQt5.QtGui import QFont, QPen, QBrush
 from campus_network_HCI import Ui_MainWindow
 
@@ -52,6 +52,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 停用导出按钮
         self.findChild(QtWidgets.QPushButton, "pushButton_exportedges").setEnabled(False)
         self.findChild(QtWidgets.QAction, "action_export").setEnabled(False)
+        self.findChild(QtWidgets.QAction, "action_export_to").setEnabled(False)
         # 停用重置链路信息按钮
         self.findChild(QtWidgets.QPushButton, "pushButton_resetedge").setEnabled(False)
         return
@@ -124,6 +125,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 停用导出按钮
         self.findChild(QtWidgets.QPushButton, "pushButton_exportedges").setEnabled(False)
         self.findChild(QtWidgets.QAction, "action_export").setEnabled(False)
+        self.findChild(QtWidgets.QAction, "action_export_to").setEnabled(False)
         # 启用重置链路信息按钮
         self.findChild(QtWidgets.QPushButton, "pushButton_resetedge").setEnabled(True)
         # 限制spinBox_source和spinBox_dest的最大值
@@ -184,6 +186,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 启用导出按钮
         self.findChild(QtWidgets.QPushButton, "pushButton_exportedges").setEnabled(True)
         self.findChild(QtWidgets.QAction, "action_export").setEnabled(True)
+        self.findChild(QtWidgets.QAction, "action_export_to").setEnabled(True)
         # 启用计算
         self.pushButton_calc_maxthrput.setEnabled(True)
         self.findChild(QtWidgets.QPushButton,"pushButton_calc_kruskal").setEnabled(True)
@@ -224,6 +227,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # 停用导出按钮
             self.findChild(QtWidgets.QPushButton, "pushButton_exportedges").setEnabled(False)
             self.findChild(QtWidgets.QAction, "action_export").setEnabled(False)
+            self.findChild(QtWidgets.QAction, "action_export_to").setEnabled(False)
         return
 
     # 导出链路信息到config/edges.txt
@@ -238,6 +242,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 f.write("{} {} {} {}\n".format(edge[0], edge[1], edge[2], edge[3]))
         # 状态栏提示成功消息，等待5秒后消失
         self.statusbar.showMessage("链路信息已成功导出到config/edges.txt！！", 5000)
+        # 启用导入按钮
+        self.findChild(QtWidgets.QPushButton, "pushButton_importedges").setEnabled(True)
+        self.findChild(QtWidgets.QAction, "action_import").setEnabled(True)
+        return
+    
+    # 导出为...
+    def trigger_pushButton_exportedges_to(self):
+        # 判断是否有该文件夹，没有则创建
+        if not os.path.exists("config"):
+            os.mkdir("config")
+        # 弹出文件选择窗口
+        filename_choose, filetype = QFileDialog.getSaveFileName(self,
+                                    "选取文件",
+                                    "config/edges.txt",
+                                    "Text Files (*.txt);;All Files (*)")
+        if filename_choose == "":
+            return
+        with open(filename_choose, "w") as f:
+            # 写入路由器和链路数量
+            f.write("{} {}\n".format(router_num, link_num))
+            for edge in edges:
+                f.write("{} {} {} {}\n".format(edge[0], edge[1], edge[2], edge[3]))
+        # 状态栏提示成功消息，等待5秒后消失
+        self.statusbar.showMessage("链路信息已成功导出到{}！！".format(filename_choose), 5000)
         # 启用导入按钮
         self.findChild(QtWidgets.QPushButton, "pushButton_importedges").setEnabled(True)
         self.findChild(QtWidgets.QAction, "action_import").setEnabled(True)
@@ -339,6 +367,114 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 启用导出按钮
         self.pushButton_exportedges.setEnabled(True)
         self.action_export.setEnabled(True)
+        self.action_export_to.setEnabled(True)
+        # 启用重置链路信息按钮
+        self.findChild(QtWidgets.QPushButton, "pushButton_resetedge").setEnabled(True)
+        # 限制spinBox_source和spinBox_dest的最大值
+        self.spinBox_source.setMaximum(router_num)
+        self.spinBox_dest.setMaximum(router_num)
+        return
+    
+    # 选择文件导入
+    def trigger_pushButton_importedges_file(self):
+        file_name, _ = QFileDialog.getOpenFileName(self, "选取文件", "./config", "Text Files (*.txt)")
+        if file_name == "":
+            return
+        reply = QMessageBox.question(self, "Warning", "确定要导入链路信息吗？", QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        router_num_inner, link_num_inner = 0, 0
+        if reply == QMessageBox.Yes:
+            # 如果文件不合法，弹出警告窗口
+            if not check_importedges():
+                QMessageBox.warning(self, "Warning", "导入的文件不合法，请重新导入！", QMessageBox.Yes)
+                return
+            with open(file_name, "r") as f:
+                edges_info = f.readlines()
+
+            edge = edges_info[0]
+            router_num_str, link_num_str = edge.split()
+            router_num_inner = int(router_num_str)
+            link_num_inner = int(link_num_str)
+            # 在状态栏显示路由器和链路数量
+            self.statusbar.showMessage("路由器数量：{}，链路数量：{}".format(router_num_inner, link_num_inner))
+            self.findChild(QtWidgets.QSpinBox, "spinBox_router_num").setValue(router_num_inner)
+            self.findChild(QtWidgets.QSpinBox, "spinBox_link_num").setValue(link_num_inner)
+
+            # 清空原有的输入框
+            while self.scrollAreaWidgetContents_edges.layout().count() > 0:
+                item = self.scrollAreaWidgetContents_edges.layout().takeAt(0)
+                widget = item.widget()
+                if widget:
+                    widget.setParent(None)
+                    widget.deleteLater()
+
+            # 添加各边的输入框
+            for k in range(1, link_num_inner + 1):
+                widget_edge_k = QtWidgets.QWidget(self.scrollAreaWidgetContents_edges)
+                widget_edge_k.setMinimumSize(QtCore.QSize(400, 35))
+                widget_edge_k.setObjectName(f"widget_edge_{k}")
+
+                h_layout_k = QtWidgets.QHBoxLayout(widget_edge_k)
+                h_layout_k.setContentsMargins(10, 10, 10, 10)
+                h_layout_k.setObjectName(f"horizontalLayout_{k}")
+
+                label_k = QtWidgets.QLabel(widget_edge_k)
+                label_k.setMinimumSize(QtCore.QSize(80, 25))
+                label_k.setObjectName(f"label_{k}")
+                label_k.setText(f"第{k}条链路")
+                h_layout_k.addWidget(label_k)
+
+                combo_start_k = QtWidgets.QComboBox(widget_edge_k)
+                combo_start_k.setMinimumSize(QtCore.QSize(80, 25))
+                combo_start_k.setObjectName(f"comboBox_start_{k}")
+                h_layout_k.addWidget(combo_start_k)
+                combo_start_k.addItems([str(l) for l in range(1, router_num_inner + 1)])  # 列表项目为所有路由器序号
+
+                combo_end_k = QtWidgets.QComboBox(widget_edge_k)
+                combo_end_k.setMinimumSize(QtCore.QSize(80, 25))
+                combo_end_k.setObjectName(f"comboBox_end_{k}")
+                h_layout_k.addWidget(combo_end_k)
+                combo_end_k.addItems([str(l) for l in range(1, router_num_inner + 1)])
+
+                spin_cost_k = QtWidgets.QSpinBox(widget_edge_k)
+                spin_cost_k.setMinimumSize(QtCore.QSize(80, 25))
+                spin_cost_k.setMaximum(65535)
+                spin_cost_k.setProperty("value", 1)
+                spin_cost_k.setObjectName(f"spinBox_cost_{k}")
+                h_layout_k.addWidget(spin_cost_k)
+
+                spin_maxthrput_k = QtWidgets.QSpinBox(widget_edge_k)
+                spin_maxthrput_k.setMinimumSize(QtCore.QSize(80, 25))
+                spin_maxthrput_k.setMaximum(65535)
+                spin_maxthrput_k.setProperty("value", 1)
+                spin_maxthrput_k.setObjectName(f"spinBox_maxthrput_{k}")
+                h_layout_k.addWidget(spin_maxthrput_k)
+
+                h_layout_k.setStretch(0, 6)
+                h_layout_k.setStretch(1, 5)
+                h_layout_k.setStretch(2, 5)
+                h_layout_k.setStretch(3, 5)
+                h_layout_k.setStretch(4, 5)
+
+                v_layout = self.scrollAreaWidgetContents_edges.layout()
+                v_layout.addWidget(widget_edge_k)
+
+            for i, edge in enumerate(edges_info):
+                if i == 0:
+                    continue
+                edge = edge.split()
+                self.scrollAreaWidgetContents_edges.findChild(QtWidgets.QComboBox, f"comboBox_start_{i}").setCurrentIndex(int(edge[0])-1)
+                self.scrollAreaWidgetContents_edges.findChild(QtWidgets.QComboBox, f"comboBox_end_{i}").setCurrentIndex(int(edge[1])-1)
+                self.scrollAreaWidgetContents_edges.findChild(QtWidgets.QSpinBox, f"spinBox_cost_{i}").setValue(int(edge[2]))
+                self.scrollAreaWidgetContents_edges.findChild(QtWidgets.QSpinBox, f"spinBox_maxthrput_{i}").setValue(int(edge[3]))
+
+        global router_num, link_num
+        router_num = router_num_inner
+        link_num = link_num_inner
+
+        # 启用导出按钮
+        self.pushButton_exportedges.setEnabled(True)
+        self.action_export.setEnabled(True)
+        self.action_export_to.setEnabled(True)
         # 启用重置链路信息按钮
         self.findChild(QtWidgets.QPushButton, "pushButton_resetedge").setEnabled(True)
         # 限制spinBox_source和spinBox_dest的最大值
