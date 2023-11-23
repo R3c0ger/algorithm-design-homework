@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QStyleFactor
 # from PyQt5.QtGui import QFont, QPen, QBrush
 from campus_network_HCI import Ui_MainWindow
 
-import sys, os, pprint, subprocess, time, base64
+import sys, os, pprint, subprocess, time, base64, chardet
 from decimal import Decimal
 
 router_num, link_num = 2, 1
@@ -638,7 +638,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         send_plain = base64.b64decode(router_msg[router_index][0]).decode()
         enkey = base64.b64decode(router_msg[router_index][1]).decode()
         dekey = base64.b64decode(router_msg[router_index][6]).decode()
-        receive_de = base64.b64decode(router_msg[router_index][7]).decode()
+        receive_de = router_msg[router_index][7]
         self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_plain").setPlainText(send_plain)
         self.findChild(QtWidgets.QLineEdit, "lineEdit_enkey").setText(enkey)
         self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").setPlainText(router_msg[router_index][0])
@@ -668,41 +668,80 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         send_plain_based = base64.b64encode(send_plain.encode()).decode()
         self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").setPlainText(send_plain_based)
 
-    # 加密明文信息，调用./aes_128/aes_128.exe
-    def aes_encrypt(self):
+    # 加密明文信息
+    def encrypt(self):
         target = self.findChild(QtWidgets.QSpinBox, "spinBox_selectrouter_tosend").value()
         send_plain = self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_plain").toPlainText()
         send_plain_based = base64.b64encode(send_plain.encode()).decode()
         enkey = self.findChild(QtWidgets.QLineEdit, "lineEdit_enkey").text()
         enkey_based = base64.b64encode(enkey.encode()).decode()
-        # 输入的字符串不能超过64个字符
-        if len(send_plain) > 64 or len(enkey) != 16:
-            self.statusBar().showMessage("输入的字符串过长，或密钥不为16个字符", 5000)
+
+        option = self.findChild(QtWidgets.QComboBox, "comboBox_algorithm").currentText()
+        if option == "AES":
+            # 输入的字符串不能超过64个字符
+            if len(send_plain) > 64 or len(enkey) != 16:
+                self.statusBar().showMessage("输入的字符串过长，或密钥不为16个字符！！", 5000)
+                return
+            if send_plain == "" or enkey == "":
+                self.statusBar().showMessage("输入的字符串和密钥不能为空！！", 5000)
+                return
+
+            aes_128_exe = "./aes_128/aes_128.exe"
+            # input_data = send_plain + "\n" + enkey
+            input_data = send_plain_based
+            p = subprocess.Popen(aes_128_exe, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, _ = p.communicate(input=input_data.encode())
+            out_str = out.decode()
+            out_list = out_str.split("\n")
+            # 将out_list中的空字符串去掉
+            out_list = [x for x in out_list if x != '']
+
+            # 0发送base64的明文字符串、1加密密钥字符串、2发送的加密密文、3接收方、4发送方、5接收的加密密文、6解密密钥、7解密后的base64明文字符串
+            router_msg[router_selected - 1][2] = out_list[5][5:].encode().decode()
+            self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").setPlainText(send_plain_based)
+            router_msg[target - 1][4] = int(router_selected)
+            router_msg[target - 1][5] = base64.b64encode(out_list[5][6:].encode()).decode()
+            router_msg[target - 1][6] = enkey_based
+            router_msg[target - 1][7] = out_list[-1][6:-1]
+
+            router_msg[router_selected - 1][0] = base64.b64encode(self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_plain").toPlainText().encode()).decode()
+            router_msg[router_selected - 1][1] = base64.b64encode(self.findChild(QtWidgets.QLineEdit, "lineEdit_enkey").text().encode()).decode()
+            router_msg[router_selected - 1][2] = base64.b64encode(self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").toPlainText().encode()).decode()
+
+        elif option == "DES":
+            # 输入的字符串只能为8个字符
+            if len(send_plain) != 8 or len(enkey) != 8:
+                self.statusBar().showMessage("输入的字符串或密钥不为8个字符！！", 5000)
+                return
+
+            des_exe = "./des_crypto/cmake-build-debug/des_crypto.exe"
+            input_data = send_plain + "\n" + enkey
+            p = subprocess.Popen(des_exe, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, _ = p.communicate(input=input_data.encode())
+            # print(chardet.detect(out)['encoding']) # 获取输出的编码格式为 koi8-r
+            out_str = out.decode(encoding="koi8-r")
+            out_list = out_str.split("\r\n")
+            out_list = [x for x in out_list if x != '']
+
+            # 0发送明文字符串、1加密密钥字符串、2发送的加密密文、3接收方、4发送方、5接收的加密密文、6解密密钥、7解密后的明文字符串
+            router_msg[router_selected - 1][2] = out_list[35]
+            self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").setPlainText(out_list[35])
+            router_msg[target - 1][4] = int(router_selected)
+            router_msg[target - 1][5] = out_list[35]
+            router_msg[target - 1][6] = enkey_based
+            router_msg[target - 1][7] = base64.b64encode(out_list[-2].encode()).decode()
+
+            router_msg[router_selected - 1][0] = base64.b64encode(
+                self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_plain").toPlainText().encode()).decode()
+            router_msg[router_selected - 1][1] = base64.b64encode(
+                self.findChild(QtWidgets.QLineEdit, "lineEdit_enkey").text().encode()).decode()
+            router_msg[router_selected - 1][2] = base64.b64encode(
+                self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").toPlainText().encode()).decode()
+
+        elif option == "SM3":
+            self.statusBar().showMessage("SM3算法暂未部署！！", 5000)
             return
-        if send_plain == "" or enkey == "":
-            return
 
-        aes_128_exe = "./aes_128/aes_128.exe"
-        # input_data = send_plain + "\n" + enkey
-        input_data = send_plain_based
-        p = subprocess.Popen(aes_128_exe, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = p.communicate(input=input_data.encode())
-        out_str = out.decode()
-        out_list = out_str.split("\n")
-        # 将out_list中的空字符串去掉
-        out_list = [x for x in out_list if x != '']
-
-        # 0发送base64的明文字符串、1加密密钥字符串、2发送的加密密文、3接收方、4发送方、5接收的加密密文、6解密密钥、7解密后的base64明文字符串
-        router_msg[router_selected - 1][2] = out_list[5][5:].encode().decode()
-        self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").setPlainText(send_plain_based)
-        router_msg[target - 1][4] = int(router_selected)
-        router_msg[target - 1][5] = base64.b64encode(out_list[5][6:].encode()).decode()
-        router_msg[target - 1][6] = enkey_based
-        router_msg[target - 1][7] = base64.b64encode(out_list[-1][6:-1].encode()).decode()
-
-        router_msg[router_selected - 1][0] = base64.b64encode(self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_plain").toPlainText().encode()).decode()
-        router_msg[router_selected - 1][1] = base64.b64encode(self.findChild(QtWidgets.QLineEdit, "lineEdit_enkey").text().encode()).decode()
-        router_msg[router_selected - 1][2] = base64.b64encode(self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").toPlainText().encode()).decode()
         self.statusBar().showMessage("保存并发送成功！！", 5000)
         return
 
