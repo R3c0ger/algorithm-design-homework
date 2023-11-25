@@ -9,13 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>1075</width>
     <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
+    <width>1075</width>
     <height>700</height>
    </size>
   </property>
@@ -52,7 +52,7 @@
      <widget class="QTabWidget" name="tabWidget">
       <property name="minimumSize">
        <size>
-        <width>840</width>
+        <width>1075</width>
         <height>600</height>
        </size>
       </property>
@@ -392,7 +392,7 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>592</width>
+                    <width>667</width>
                     <height>220</height>
                    </rect>
                   </property>
@@ -1575,438 +1575,398 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>信息加解密传输系统</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_16">
+       <layout class="QVBoxLayout" name="verticalLayout_17">
+        <property name="spacing">
+         <number>20</number>
+        </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_15">
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <layout class="QVBoxLayout" name="verticalLayout_15">
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_11">
+             <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="1,1">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_13">
+               <layout class="QVBoxLayout" name="verticalLayout_11">
                 <item>
-                 <widget class="QLabel" name="label_46">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>140</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>选择当前路由节点：</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
+                 <layout class="QHBoxLayout" name="horizontalLayout_13">
+                  <item>
+                   <widget class="QLabel" name="label_46">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>140</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>选择当前路由节点：</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinBox_selectrouter">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>80</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>65535</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_44">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>发送给：</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinBox_selectrouter_tosend">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>80</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>65535</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBox_selectrouter">
-                  <property name="enabled">
+                 <widget class="QTextBrowser" name="textBrowser_send_plain">
+                  <property name="toolTip">
+                   <string>输入要发送的明文消息</string>
+                  </property>
+                  <property name="statusTip">
+                   <string>输入要发送的明文消息</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>输入要发送的明文消息</string>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOn</enum>
+                  </property>
+                  <property name="undoRedoEnabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="readOnly">
                    <bool>false</bool>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>80</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_44">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>60</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>60</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>发送给：</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSpinBox" name="spinBox_selectrouter_tosend">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>80</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QTextBrowser" name="textBrowser_send_plain">
-                <property name="toolTip">
-                 <string>输入要发送的明文消息</string>
-                </property>
-                <property name="statusTip">
-                 <string>输入要发送的明文消息</string>
-                </property>
-                <property name="whatsThis">
-                 <string>输入要发送的明文消息</string>
-                </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOn</enum>
-                </property>
-                <property name="undoRedoEnabled">
-                 <bool>true</bool>
-                </property>
-                <property name="readOnly">
-                 <bool>false</bool>
-                </property>
-                <property name="html">
-                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+                  <property name="html">
+                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`~!@#$%^&amp;amp;*()_+-=\,./;'[]&amp;lt;&amp;gt;?:&amp;quot;{}|，。、；‘【】·~！￥…（）——《》？：“ &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;	天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;寒来暑往，秋收冬藏。闰余成岁，律吕调阳。&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;云腾致雨，露结为霜。金生丽水，玉出昆冈。&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;剑号巨阙，珠称夜光。果珍李柰，菜重芥姜。&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;海咸河淡，鳞潜羽翔。龙师火帝，鸟官人皇。&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;始制文字，乃服衣裳。推位让国，有虞陶唐。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="acceptRichText">
-                 <bool>false</bool>
-                </property>
-                <property name="placeholderText">
-                 <string>在这里输入要发送的明文消息</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_14">
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_14">
-                <item>
-                 <widget class="QLabel" name="label_45">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;abcdefjh&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>170</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>输入加密密钥（16位）：</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_enkey">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>170</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="statusTip">
-                   <string>输入16位密钥字符串</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>输入16位密钥字符串</string>
-                  </property>
-                  <property name="text">
-                   <string>1145141919810123</string>
-                  </property>
-                  <property name="dragEnabled">
-                   <bool>true</bool>
+                  <property name="acceptRichText">
+                   <bool>false</bool>
                   </property>
                   <property name="placeholderText">
-                   <string>请在这里输入16位密钥字符串</string>
+                   <string>在这里输入要发送的明文消息</string>
                   </property>
                  </widget>
                 </item>
                </layout>
               </item>
               <item>
-               <widget class="QTextBrowser" name="textBrowser_send_en">
-                <property name="toolTip">
-                 <string>这里是要发送的加密消息</string>
-                </property>
-                <property name="statusTip">
-                 <string>这里是要发送的加密消息</string>
-                </property>
-                <property name="whatsThis">
-                 <string>这里是要发送的加密消息</string>
-                </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOn</enum>
-                </property>
-                <property name="acceptRichText">
-                 <bool>false</bool>
-                </property>
-                <property name="placeholderText">
-                 <string>这里是要发送的加密消息</string>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_14">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <item>
+                   <widget class="QLabel" name="label_45">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>170</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>输入加密密钥（16位）：</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_enkey">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>170</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="statusTip">
+                     <string>输入16位密钥字符串</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>输入16位密钥字符串</string>
+                    </property>
+                    <property name="text">
+                     <string>1145141919810123</string>
+                    </property>
+                    <property name="dragEnabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="placeholderText">
+                     <string>请在这里输入16位密钥字符串</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QTextBrowser" name="textBrowser_send_en">
+                  <property name="toolTip">
+                   <string>这里是要发送的加密消息</string>
+                  </property>
+                  <property name="statusTip">
+                   <string>这里是要发送的加密消息</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>这里是要发送的加密消息</string>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOn</enum>
+                  </property>
+                  <property name="acceptRichText">
+                   <bool>false</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>这里是要发送的加密消息</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_28" stretch="1,1">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_21">
+                <item>
+                 <widget class="QSpinBox" name="spinBox_receive_from">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>340</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="frame">
+                   <bool>false</bool>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="suffix">
+                   <string> 号路由器的加密信息：</string>
+                  </property>
+                  <property name="prefix">
+                   <string>接收到来自 </string>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QTextBrowser" name="textBrowser_receive_en">
+                  <property name="toolTip">
+                   <string>这里是接收到的加密消息</string>
+                  </property>
+                  <property name="statusTip">
+                   <string>这里是接收到的加密消息</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>这里是接收到的加密消息</string>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOn</enum>
+                  </property>
+                  <property name="acceptRichText">
+                   <bool>false</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>这里是接收到的加密消息</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_22">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_27">
+                  <item>
+                   <widget class="QLabel" name="label_47">
+                    <property name="minimumSize">
+                     <size>
+                      <width>170</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>输入解密密钥（16位）：</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_dekey">
+                    <property name="minimumSize">
+                     <size>
+                      <width>170</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="statusTip">
+                     <string>输入16位密钥字符串</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>输入16位密钥字符串</string>
+                    </property>
+                    <property name="text">
+                     <string>1145141919810123</string>
+                    </property>
+                    <property name="dragEnabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="placeholderText">
+                     <string>请在这里输入16位密钥字符串</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QTextBrowser" name="textBrowser_receive_de">
+                  <property name="toolTip">
+                   <string>这里是接收到的明文消息</string>
+                  </property>
+                  <property name="statusTip">
+                   <string>这里是接收到的明文消息</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>这里是接收到的明文消息</string>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOn</enum>
+                  </property>
+                  <property name="acceptRichText">
+                   <bool>false</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>这里是接收到的明文消息</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="Line" name="line_5">
+           <widget class="Line" name="line_3">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_28" stretch="1,1">
+           <layout class="QVBoxLayout" name="verticalLayout_13" stretch="4,1,4,4">
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_21">
-              <item>
-               <widget class="QSpinBox" name="spinBox_receive_from">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>340</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="frame">
-                 <bool>false</bool>
-                </property>
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
-                <property name="buttonSymbols">
-                 <enum>QAbstractSpinBox::NoButtons</enum>
-                </property>
-                <property name="suffix">
-                 <string> 号路由器的加密信息：</string>
-                </property>
-                <property name="prefix">
-                 <string>接收到来自 </string>
-                </property>
-                <property name="maximum">
-                 <number>65535</number>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QTextBrowser" name="textBrowser_receive_en">
-                <property name="toolTip">
-                 <string>这里是接收到的加密消息</string>
-                </property>
-                <property name="statusTip">
-                 <string>这里是接收到的加密消息</string>
-                </property>
-                <property name="whatsThis">
-                 <string>这里是接收到的加密消息</string>
-                </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOn</enum>
-                </property>
-                <property name="acceptRichText">
-                 <bool>false</bool>
-                </property>
-                <property name="placeholderText">
-                 <string>这里是接收到的加密消息</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_22">
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_27">
-                <item>
-                 <widget class="QLabel" name="label_47">
-                  <property name="minimumSize">
-                   <size>
-                    <width>170</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>输入解密密钥（16位）：</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_dekey">
-                  <property name="minimumSize">
-                   <size>
-                    <width>170</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="statusTip">
-                   <string>输入16位密钥字符串</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>输入16位密钥字符串</string>
-                  </property>
-                  <property name="text">
-                   <string>1145141919810123</string>
-                  </property>
-                  <property name="dragEnabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="placeholderText">
-                   <string>请在这里输入16位密钥字符串</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QTextBrowser" name="textBrowser_receive_de">
-                <property name="toolTip">
-                 <string>这里是接收到的明文消息</string>
-                </property>
-                <property name="statusTip">
-                 <string>这里是接收到的明文消息</string>
-                </property>
-                <property name="whatsThis">
-                 <string>这里是接收到的明文消息</string>
-                </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOn</enum>
-                </property>
-                <property name="acceptRichText">
-                 <bool>false</bool>
-                </property>
-                <property name="placeholderText">
-                 <string>这里是接收到的明文消息</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="Line" name="line_3">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_13" stretch="4,1,4,4">
-          <item>
-           <widget class="QPushButton" name="pushButton_saveall">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>110</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>保存
-所有
-信息</string>
-            </property>
-            <property name="shortcut">
-             <string>Ctrl+S</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_12">
-            <item>
-             <widget class="QLabel" name="label_22">
+             <widget class="QPushButton" name="pushButton_saveall">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -2014,128 +1974,314 @@ p, li { white-space: pre-wrap; }
               <property name="minimumSize">
                <size>
                 <width>110</width>
-                <height>30</height>
+                <height>100</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>100</width>
-                <height>30</height>
+                <height>16777215</height>
                </size>
               </property>
               <property name="text">
-               <string>选择加解密算法</string>
+               <string>保存
+所有
+信息</string>
               </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              <property name="shortcut">
+               <string>Ctrl+S</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_algorithm">
+             <layout class="QVBoxLayout" name="verticalLayout_12">
+              <item>
+               <widget class="QLabel" name="label_22">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>110</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>选择加解密算法</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_algorithm">
+                <property name="minimumSize">
+                 <size>
+                  <width>110</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>AES</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>DES</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_en">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>110</width>
-                <height>30</height>
+                <height>100</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>100</width>
-                <height>30</height>
+                <height>16777215</height>
                </size>
               </property>
-              <item>
-               <property name="text">
-                <string>AES</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>DES</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>SM3</string>
-               </property>
-              </item>
+              <property name="sizeIncrement">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>加密
+信息</string>
+              </property>
+              <property name="shortcut">
+               <string>Ctrl+B</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_send">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>110</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>发送
+加密
+信息</string>
+              </property>
+              <property name="shortcut">
+               <string>Alt+S</string>
+              </property>
              </widget>
             </item>
            </layout>
           </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_en">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>110</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="sizeIncrement">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>加密
-信息</string>
-            </property>
-            <property name="shortcut">
-             <string>Ctrl+B</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_send">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>110</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>发送
-加密
-信息</string>
-            </property>
-            <property name="shortcut">
-             <string>Alt+S</string>
-            </property>
-           </widget>
-          </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>对待发送消息进行 SM3 签名</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="9,5">
+           <property name="spacing">
+            <number>14</number>
+           </property>
+           <item>
+            <widget class="QTextBrowser" name="textBrowser_sm3">
+             <property name="toolTip">
+              <string>签名后的数据流</string>
+             </property>
+             <property name="statusTip">
+              <string>签名后的数据流</string>
+             </property>
+             <property name="whatsThis">
+              <string>签名后的数据流</string>
+             </property>
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOn</enum>
+             </property>
+             <property name="undoRedoEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="readOnly">
+              <bool>false</bool>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="acceptRichText">
+              <bool>false</bool>
+             </property>
+             <property name="placeholderText">
+              <string>签名后的数据流</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_16" stretch="1,2">
+             <property name="spacing">
+              <number>14</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="1,3">
+               <item>
+                <widget class="QLabel" name="label_48">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>75</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>输入密钥：</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_signkey">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>170</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>50</height>
+                  </size>
+                 </property>
+                 <property name="statusTip">
+                  <string>输入密钥字符串</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>输入密钥字符串</string>
+                 </property>
+                 <property name="text">
+                  <string>helloworld</string>
+                 </property>
+                 <property name="dragEnabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>请在这里输入密钥字符串</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_sign">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="sizeIncrement">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>对信息进行 SM3 签名</string>
+               </property>
+               <property name="shortcut">
+                <string>Ctrl+B</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -2149,7 +2295,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
+     <width>1075</width>
      <height>26</height>
     </rect>
    </property>
@@ -2516,8 +2662,8 @@ p, li { white-space: pre-wrap; }
    <slot>save_allinput()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>942</x>
-     <y>115</y>
+     <x>1055</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
      <x>1001</x>
@@ -2532,8 +2678,8 @@ p, li { white-space: pre-wrap; }
    <slot>encrypt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>936</x>
-     <y>300</y>
+     <x>1055</x>
+     <y>472</y>
     </hint>
     <hint type="destinationlabel">
      <x>1001</x>
@@ -2548,8 +2694,8 @@ p, li { white-space: pre-wrap; }
    <slot>base64()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>948</x>
-     <y>199</y>
+     <x>1055</x>
+     <y>358</y>
     </hint>
     <hint type="destinationlabel">
      <x>1002</x>
@@ -2589,6 +2735,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_sign</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>sm3_sign()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1011</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1083</x>
+     <y>659</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>trigger_actHelp()</slot>
@@ -2612,5 +2774,6 @@ p, li { white-space: pre-wrap; }
   <slot>base64()</slot>
   <slot>trigger_pushButton_importedges_file()</slot>
   <slot>trigger_pushButton_exportedges_to()</slot>
+  <slot>sm3_sign()</slot>
  </slots>
 </ui>

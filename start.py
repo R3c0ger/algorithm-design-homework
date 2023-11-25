@@ -4,6 +4,9 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QStyleFactor
 # from PyQt5.QtGui import QFont, QPen, QBrush
 from campus_network_HCI import Ui_MainWindow
 
+import sm3_signature
+from sm3_signature import signature
+
 import sys, os, pprint, subprocess, time, base64, chardet
 from decimal import Decimal
 
@@ -679,11 +682,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         option = self.findChild(QtWidgets.QComboBox, "comboBox_algorithm").currentText()
         if option == "AES":
             # 输入的字符串不能超过64个字符
-            if len(send_plain) > 64 or len(enkey) != 16:
-                self.statusBar().showMessage("输入的字符串过长，或密钥不为16个字符！！", 5000)
-                return
             if send_plain == "" or enkey == "":
                 self.statusBar().showMessage("输入的字符串和密钥不能为空！！", 5000)
+                return
+            if len(send_plain) > 64 or len(enkey) != 16:
+                self.statusBar().showMessage("输入的字符串过长，或密钥不为16个字符！！", 5000)
                 return
 
             aes_128_exe = "./aes_128/aes_128.exe"
@@ -709,12 +712,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             router_msg[router_selected - 1][2] = base64.b64encode(self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").toPlainText().encode()).decode()
 
         elif option == "DES":
-            # 输入的字符串只能为8个字符
-            if len(send_plain) != 8 or len(enkey) != 8:
-                self.statusBar().showMessage("输入的字符串或密钥不为8个字符！！", 5000)
+            if send_plain == "" or enkey == "":
+                self.statusBar().showMessage("输入的字符串和密钥不能为空！！", 5000)
+                return
+            if len(send_plain) > 8:
+                self.statusBar().showMessage("输入的字符串过长！！", 5000)
+                return
+            if len(enkey) != 8:
+                self.statusBar().showMessage("输入的密钥不为8个字符！！", 5000)
                 return
 
-            des_exe = "./des_crypto/cmake-build-debug/des_crypto.exe"
+            des_exe = "./des_crypto/main.exe"
             input_data = send_plain + "\n" + enkey
             p = subprocess.Popen(des_exe, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, _ = p.communicate(input=input_data.encode())
@@ -738,13 +746,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             router_msg[router_selected - 1][2] = base64.b64encode(
                 self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_en").toPlainText().encode()).decode()
 
-        elif option == "SM3":
-            self.statusBar().showMessage("SM3算法暂未部署！！", 5000)
-            return
-
         self.statusBar().showMessage("保存并发送成功！！", 5000)
         return
 
+    # SM3 签名
+    def sm3_sign(self):
+        message = self.findChild(QtWidgets.QTextBrowser, "textBrowser_send_plain").toPlainText().encode('utf-8')
+        key = self.findChild(QtWidgets.QLineEdit, "lineEdit_signkey").text().encode('utf-8')
+        if message == "":
+            self.statusBar().showMessage("消息字符串不能为空！！", 5000)
+            return
+        if key == "":
+            self.statusBar().showMessage("密钥不能为空！！", 5000)
+            return
+
+        # 调用sm3_signature.py中的signature函数
+        signed = signature(message, key)
+        self.findChild(QtWidgets.QTextBrowser, "textBrowser_sm3").setPlainText(signed)
+        self.statusBar().showMessage("签名成功！！", 5000)
 
 # 判断导入文件是否合法，不合法则停用导入按钮
 def check_importedges():

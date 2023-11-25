@@ -1,6 +1,8 @@
 #  Algorithm Design Homework - Campus Network Routing Design
 
-**算法设计大作业-校园网路由设计**
+## 算法设计大作业-校园网路由设计
+
+**使用方式：运行 start.py**
 
 ---
 
